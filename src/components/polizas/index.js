@@ -12,6 +12,7 @@ class Polizas extends Component {
             id: 0,
         };
         this.onClick = this.onClick.bind(this);
+        this.sortByPrice = this.sortByPrice.bind(this);
     }
 
     onClick(e) {
@@ -27,13 +28,23 @@ class Polizas extends Component {
         this.props.findCurrentItem(Number(e.target.value));
     }
 
+    sortByPrice(a,b) {
+        if (a.Precio > b.Precio) {
+            return 1;
+        }
+        if (a.Precio < b.Precio) {
+            return -1;
+        }
+        return 0;
+    }
+
     render() {
         const { currentItem } = this.props;
         const { id } = this.state;
 
         return (
             <Page
-                polizas={polizas}
+                polizas={polizas.sort((a,b) => this.sortByPrice(a,b))}
                 preview={currentItem}
                 id={id}
                 onClick={this.onClick}
